@@ -1,10 +1,16 @@
 import React from 'react'
 
-const NoteCard = () => {
+const NoteCard = ({note}) => {
+  
+
+  // console.log(note)
   return (
-    <div className='w-40 h-50 bg-yellow-300 rounded-2xl mt-1.5 p-1.5 content-center m-1'>
-    <h2 className=' tracking-tighter font-mono'>Note title</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolores vel recusandae in voluptas nam officiis 
+    <div className='w-40 h-50 bg-yellow-300 rounded-2xl mt-1.5 p-1.5 content-center m-1 overflow-y-scroll flex flex-col align-middle justify-between'>
+    <h2 className=' tracking-tighter font-mono'>{note.title}</h2>
+      <p>{note.content}
+      </p>
+      <p className='text-.5'>
+      Date:{note.createdAt.split(":")[0].slice(0,10)}
       </p>
     </div>
   )
