@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import axios from "axios";
 import NavBar from "../components/NavBar";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {Camera ,ArrowLeft} from "lucide-react"
 
 const CreateNote = () => {
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
 
+  const Navigate = useNavigate();
   const HandleOnSubmit = async (e) => {
     e.preventDefault();
     await axios.post("http://localhost:3000/api/notes", {
       title: Title,
       content: Content,
     });
+     Navigate("/");
+
+
     console.log({ Title, Content });
     toast.success("created sucessfully")
     setTitle("");

@@ -1,7 +1,29 @@
 import React from 'react'
+import {Delete,Edit, Trash2} from 'lucide-react'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import {toast} from 'react-hot-toast'
 
-const NoteCard = ({note}) => {
+const NoteCard = ({note,setNotes,Notes}) => {
+
+
   
+  const HandleDelete = async (id)=>{
+
+    try {
+      await axios.delete(`http://localhost:3000/api/notes/${id}`)
+    setNotes(Notes.filter((n) => n._id !== id));
+    toast.success("deleted succesfully")
+      
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
+
+  const HandleUpdate = async(id)=>{
+await axios.put(`http://localhost:3000/api/notes/${id}`)
+  }
 
   // console.log(note)
   return (
@@ -12,6 +34,10 @@ const NoteCard = ({note}) => {
       <p className='text-.5'>
       Date:{note.createdAt.split(":")[0].slice(0,10)}
       </p>
+      <div className='flex justify-end gap-2'>
+        <button onClick={()=>HandleDelete(note._id)}><Trash2></Trash2></button>
+        <Link to={`/notes/:${note._id}`}><Edit></Edit></Link>
+      </div>
     </div>
   )
 }
